@@ -433,36 +433,50 @@ section { padding: var(--sec-pad); }
 .platforms { background: var(--bg-2); }
 
 .ptab-bar {
-  display: flex;
+  display: inline-flex;
   gap: 6px;
   margin-bottom: 36px;
-  background: var(--n-100);
+  background: #eef0f6;
   padding: 6px;
-  border-radius: 14px;
-  width: fit-content;
+  border-radius: 16px;
 }
+
 .ptab {
-  padding: 10px 22px;
-  border-radius: 12px;
-  font-family: var(--font);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: var(--text-3);
-  transition: all .2s ease;
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all .2s ease;
 }
+
+.ptab img {
+  height: 18px;
+  object-fit: contain;
 }
-.ptab:hover { color: var(--text-1); background: var(--n-50); }
+
+.ptab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.zt .ptab-dot { background: var(--zoom-600); }
+.ht .ptab-dot { background: var(--hub-600); }
+.dt .ptab-dot { background: var(--zen-600); }
+
 .ptab.on {
   background: white;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transform: translateY(-1px);
 }
+
 .ptab.on.zt { color: var(--zoom-600); }
 .ptab.on.ht { color: var(--hub-600); }
 .ptab.on.dt { color: var(--zen-600); }
@@ -1082,15 +1096,22 @@ footer { background: var(--n-950); padding: 52px 6%; }
       <p class="sec-sub">Certified implementations with measurable outcomes — and all three connected into one unified ecosystem.</p>
     </div>
 
-    <div class="ptab-bar reveal d1">
-      <button class="ptab zt on" onclick="showPL('zoom',this)">
-  <img src="zoom.png" alt="Zoom" style="height:16px;">
+   <button class="ptab zt on" onclick="showPL('zoom',this)">
+  <span class="ptab-dot"></span>
+  <img src="zoom.png" alt="Zoom">
+  Zoom
 </button>
-      <button class="ptab ht" onclick="showPL('hub',this)">
-  <img src="hubspot.png" alt="HubSpot" style="height:16px;">
+
+<button class="ptab ht" onclick="showPL('hub',this)">
+  <span class="ptab-dot"></span>
+  <img src="hubspot.png" alt="HubSpot">
+  HubSpot
 </button>
-      <button class="ptab dt" onclick="showPL('zen',this)">
-  <img src="zendesk.png" alt="Zendesk" style="height:16px;">
+
+<button class="ptab dt" onclick="showPL('zen',this)">
+  <span class="ptab-dot"></span>
+  <img src="zendesk.png" alt="Zendesk">
+  Zendesk
 </button>
 
     <!-- ZOOM -->
@@ -1548,13 +1569,14 @@ footer { background: var(--n-950); padding: 52px 6%; }
 
 <!-- SCRIPTS -->
 <script>
-  /* Platform tab switcher */
-  function showPL(name, btn) {
-    document.querySelectorAll('.ptab').forEach(t => t.classList.remove('on'));
-    document.querySelectorAll('.pl-panel').forEach(p => p.classList.remove('on'));
-    btn.classList.add('on');
-    document.getElementById('pl-' + name).classList.add('on');
-  }
+function showPL(id, el) {
+  document.querySelectorAll(".pl-panel").forEach(p => p.classList.remove("on"));
+  document.querySelectorAll(".ptab").forEach(t => t.classList.remove("on"));
+
+  document.getElementById("pl-" + id).classList.add("on");
+  el.classList.add("on");
+}
+</script>
 
   /* Comparison tab switcher */
   function showComp(name, btn) {
@@ -1585,6 +1607,7 @@ footer { background: var(--n-950); padding: 52px 6%; }
 </body>
 
 </html>
+
 
 
 
