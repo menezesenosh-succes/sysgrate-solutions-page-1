@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Discovery Call | Sysgrate</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:Inter;
+background:#f7f7fc;
+margin:0;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:80px 20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+img{
+width:100%;
+border-radius:16px;
+}
+
+h1{
+font-size:42px;
+margin-bottom:20px;
+}
+
+p{
+color:#555;
+margin-bottom:30px;
+}
+
+form{
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+input, textarea{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border-radius:8px;
+border:1px solid #ddd;
+font-size:14px;
+}
+
+button{
+background:#6B3DE8;
+color:white;
+border:none;
+padding:14px;
+width:100%;
+border-radius:8px;
+font-weight:600;
+cursor:pointer;
+}
+
+button:hover{
+background:#4F2DC4;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div>
+
+<h1>Book a Discovery Call</h1>
+
+<p>
+Talk with our experts to design a unified ecosystem for your
+communication, sales, and support workflows.
+</p>
+
+<form action="mailto:enosh.godwin@sysgrate.com" method="POST" enctype="text/plain">
+
+<input type="text" name="Name" placeholder="Full Name" required>
+
+<input type="email" name="Email" placeholder="Business Email" required>
+
+<input type="text" name="Company" placeholder="Company Name">
+
+<textarea name="Requirements" placeholder="Tell us about your requirements"></textarea>
+
+<button type="submit">Book Discovery Call</button>
+
+</form>
+
+</div>
+
+<div>
+<img src="agent.jpg" alt="Consultation Call">
+</div>
+
+</div>
+
+</body>
+</html>
