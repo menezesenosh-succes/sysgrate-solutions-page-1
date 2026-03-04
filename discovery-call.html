@@ -1,113 +1,758 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book a Discovery Call | Sysgrate</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a Discovery Call — Sysgrate</title>
+<meta name="description" content="Schedule a free discovery call with Sysgrate's certified experts. Learn how to unify Zoom, HubSpot, and Zendesk for maximum efficiency." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900&display=swap" rel="stylesheet" />
 <style>
+/* ═══════════════════════════════════════════
+   SHARED DESIGN SYSTEM — matches index.html
+   ═══════════════════════════════════════════ */
+:root {
+  --sg-900: #1A0960; --sg-800: #2B12A0; --sg-700: #3B1FA3;
+  --sg-600: #4F2DC4; --sg-500: #6B3DE8; --sg-400: #8B63F0;
+  --sg-300: #B39AF7; --sg-200: #D4C5FB; --sg-100: #EDE8FD; --sg-50: #F6F3FF;
+  --zoom-600: #0B5CFF; --zoom-50: #EBF1FF;
+  --hub-600: #E8612C;  --hub-50: #FFF2ED;
+  --zen-600: #1F73B7;  --zen-50: #E5F2FB;
+  --n-950: #090912; --n-900: #111120; --n-800: #1D1D32; --n-700: #2D2D48;
+  --n-600: #48486A; --n-500: #6B6B90; --n-400: #9595B2; --n-300: #C0C0D4;
+  --n-200: #E0E0EE; --n-100: #F0F0F8; --n-50: #F7F7FC; --white: #FFFFFF;
+  --text-1: var(--n-950); --text-2: var(--n-600); --text-3: var(--n-400);
+  --border: var(--n-200); --bg: var(--white); --bg-2: var(--n-50);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --s-sm: 0 1px 4px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
+  --s-md: 0 4px 16px rgba(0,0,0,.07), 0 1px 4px rgba(0,0,0,.04);
+  --s-lg: 0 12px 44px rgba(0,0,0,.10), 0 3px 12px rgba(0,0,0,.05);
+  --s-purple: 0 8px 32px rgba(107,61,232,.28);
+  --max-w: 1100px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font); font-size: 16px; line-height: 1.65;
+  color: var(--text-1); background: var(--bg);
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  font-optical-sizing: auto;
+  font-feature-settings: "cv02" 1, "cv03" 1, "cv11" 1, "ss01" 1;
+}
+h1,h2,h3,h4,h5,h6 { font-family: var(--font); line-height: 1.1; color: var(--text-1); font-optical-sizing: auto; }
 
-body{
-font-family:Inter;
-background:#f7f7fc;
-margin:0;
+/* ── ANNOUNCEMENT BAR ── */
+.annc {
+  background: linear-gradient(90deg, var(--sg-700) 0%, var(--sg-500) 100%);
+  color: white; text-align: center; padding: 10px 20px;
+  font-size: 13px; font-weight: 500; position: relative; overflow: hidden;
+}
+.annc::after {
+  content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  animation: annc-shine 4s ease-in-out infinite;
+}
+@keyframes annc-shine { 0%{left:-60%} 55%{left:120%} 100%{left:120%} }
+.annc a { color: rgba(255,255,255,.82); text-decoration: underline; margin-left: 6px; }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 999;
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  padding: 0 7%; height: 68px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  transition: box-shadow .3s;
+}
+nav.scrolled { box-shadow: 0 2px 32px rgba(79,45,196,.1); }
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.nav-logo img { height: 32px; width: auto; }
+.nav-logo-fb { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; color: var(--sg-700); display: none; }
+.nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+.nav-links a {
+  display: block; padding: 7px 14px; font-size: 14px; font-weight: 500;
+  color: var(--text-2); text-decoration: none; border-radius: 8px;
+  transition: color .15s, background .15s;
+}
+.nav-links a:hover { color: var(--sg-600); background: var(--sg-50); }
+.nav-end { display: flex; align-items: center; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  text-decoration: none; cursor: pointer; border: none;
+  border-radius: 10px; transition: all .2s; white-space: nowrap;
+}
+.btn-sm  { padding: 8px 17px; font-size: 13px; }
+.btn-md  { padding: 10px 21px; }
+.btn-ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--n-50); color: var(--text-1); }
+.btn-pri { background: var(--sg-600); color: white; box-shadow: 0 2px 8px rgba(79,45,196,.28); }
+.btn-pri:hover { background: var(--sg-700); transform: translateY(-1px); }
+
+/* ── PAGE HERO — distinct warm-dark tone for Call page ── */
+.page-hero {
+  background: linear-gradient(135deg, #0f0826 0%, var(--sg-800) 50%, #1a0540 100%);
+  position: relative; overflow: hidden;
+  padding: 0 7%;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, black, transparent);
+  animation: grid-breathe 9s ease-in-out infinite;
+}
+@keyframes grid-breathe { 0%,100%{opacity:.4} 50%{opacity:1} }
+.page-hero::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 65% at 100% 50%, rgba(139,99,240,.22) 0%, transparent 60%),
+    radial-gradient(ellipse 35% 45% at 5% 15%, rgba(11,92,255,.12) 0%, transparent 60%);
 }
 
-.container{
-max-width:1100px;
-margin:auto;
-padding:80px 20px;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:60px;
-align-items:center;
+.page-hero-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 72px; align-items: center; min-height: 520px;
+  position: relative; z-index: 1;
+  padding: 80px 0;
 }
 
-img{
-width:100%;
-border-radius:16px;
+.hero-text { color: white; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .11em; color: var(--sg-300); margin-bottom: 20px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 18px; height: 2px; background: var(--sg-400); border-radius: 2px;
+}
+.hero-text h1 {
+  font-size: clamp(32px, 4vw, 52px); font-weight: 900;
+  letter-spacing: -0.038em; color: white; margin-bottom: 20px; line-height: 1.07;
+}
+.hero-text h1 .accent {
+  background: linear-gradient(135deg, #c4b5fd 0%, #67e8f9 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-text p { font-size: 17px; color: rgba(255,255,255,.7); line-height: 1.7; margin-bottom: 36px; max-width: 480px; }
+
+/* Process steps in hero */
+.hero-steps { display: flex; flex-direction: column; gap: 16px; }
+.hero-step {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 12px; backdrop-filter: blur(8px);
+  transition: background .2s;
+}
+.hero-step:hover { background: rgba(255,255,255,.11); }
+.hs-num {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--sg-500), var(--sg-400));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: white;
+}
+.hs-text h4 { font-size: 13.5px; font-weight: 700; color: white; margin-bottom: 2px; }
+.hs-text p  { font-size: 12.5px; color: rgba(255,255,255,.55); }
+
+/* Hero image panel */
+.hero-img-wrap {
+  position: relative; border-radius: 22px; overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,.45);
+  animation: img-float 7s ease-in-out infinite;
+}
+@keyframes img-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.hero-img-wrap img {
+  width: 100%; display: block;
+  aspect-ratio: 4/3; object-fit: cover; object-position: center top;
+  filter: brightness(.92) saturate(1.1);
+}
+.hero-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(15,8,38,.6) 100%);
+}
+.hero-img-badge {
+  position: absolute; bottom: 20px; left: 20px; right: 20px;
+  background: rgba(255,255,255,.1); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 14px; padding: 14px 18px;
+  display: flex; align-items: center; gap: 14px;
+}
+.hib-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #a78bfa; flex-shrink: 0;
+  animation: blink 2.2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+.hib-text { font-size: 13px; color: white; font-weight: 500; line-height: 1.4; }
+.hib-text strong { display: block; font-weight: 700; }
+
+/* Floating cred pill */
+.cred-pill {
+  position: absolute; top: 20px; right: 20px;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(12px);
+  border-radius: 100px; padding: 7px 14px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; color: var(--sg-700);
+  box-shadow: 0 4px 20px rgba(0,0,0,.2);
+}
+.cred-icon { font-size: 15px; }
+
+/* ── MAIN LAYOUT ── */
+.page-body { padding: 80px 7%; background: var(--bg-2); }
+.page-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: start; }
+
+/* ── SIDE CONTENT ── */
+.side-content { position: sticky; top: 100px; }
+
+.what-happens {
+  background: white; border: 1px solid var(--border);
+  border-radius: 22px; padding: 36px; margin-bottom: 22px;
+  box-shadow: var(--s-sm);
+}
+.what-happens h3 { font-size: 17px; font-weight: 800; letter-spacing: -0.022em; margin-bottom: 22px; }
+
+.timeline { display: flex; flex-direction: column; }
+.tl-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding-bottom: 24px; position: relative;
+}
+.tl-item:last-child { padding-bottom: 0; }
+.tl-line {
+  position: absolute; left: 16px; top: 36px;
+  width: 2px; height: calc(100% - 8px);
+  background: linear-gradient(180deg, var(--sg-200), transparent);
+}
+.tl-item:last-child .tl-line { display: none; }
+.tl-dot {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  background: var(--sg-50); border: 2px solid var(--sg-200);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; position: relative; z-index: 1;
+  transition: background .2s, border-color .2s;
+}
+.tl-item:hover .tl-dot { background: var(--sg-100); border-color: var(--sg-400); }
+.tl-text h4 { font-size: 13.5px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 3px; }
+.tl-text .dur { font-size: 11.5px; font-weight: 600; color: var(--sg-500); margin-bottom: 4px; }
+.tl-text p  { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+
+.social-proof {
+  background: linear-gradient(135deg, var(--sg-700) 0%, var(--sg-900) 100%);
+  border-radius: 22px; padding: 36px; color: white;
+}
+.social-proof h3 { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 20px; color: white; }
+.quote-block { margin-bottom: 24px; }
+.quote-text {
+  font-size: 14px; color: rgba(255,255,255,.8); line-height: 1.65;
+  font-style: italic; margin-bottom: 14px;
+}
+.quote-text::before { content: '"'; font-size: 24px; font-weight: 900; color: var(--sg-400); line-height: 0; vertical-align: -8px; margin-right: 4px; }
+.quote-attr { display: flex; align-items: center; gap: 10px; }
+.quote-av {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,.15); border: 2px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: white;
+  flex-shrink: 0;
+}
+.quote-name { font-size: 13px; font-weight: 700; color: white; }
+.quote-co   { font-size: 11.5px; color: rgba(255,255,255,.5); }
+
+.proof-nums { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.pn { background: rgba(255,255,255,.08); border-radius: 12px; padding: 16px; }
+.pn-n { font-size: 24px; font-weight: 900; letter-spacing: -0.04em; color: white; line-height: 1; margin-bottom: 5px; }
+.pn-l { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.4; }
+
+/* ── FORM CARD ── */
+.form-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 24px; padding: 52px 48px; box-shadow: var(--s-lg);
+  position: relative; overflow: hidden;
+}
+.form-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--sg-500), #a78bfa, #60d4ff);
+}
+.form-title { font-size: 24px; font-weight: 800; letter-spacing: -0.028em; margin-bottom: 6px; }
+.form-sub { font-size: 14.5px; color: var(--text-2); margin-bottom: 36px; line-height: 1.55; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.form-group { margin-bottom: 22px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--text-1); margin-bottom: 7px;
+}
+.form-label .req { color: var(--sg-500); margin-left: 2px; }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 11px 16px;
+  font-family: var(--font); font-size: 14px; color: var(--text-1);
+  background: var(--bg-2); border: 1.5px solid var(--border);
+  border-radius: 10px; outline: none;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  appearance: none; -webkit-appearance: none;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--n-400); }
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--sg-400); background: white;
+  box-shadow: 0 0 0 3px rgba(107,61,232,.1);
+}
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239595B2' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+  padding-right: 40px; cursor: pointer;
+}
+.form-textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+
+/* Interest checkboxes */
+.check-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.check-item input[type="checkbox"] { display: none; }
+.check-item label {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 8px; border: 1.5px solid var(--border);
+  font-size: 13px; font-weight: 600; color: var(--text-2);
+  cursor: pointer; transition: all .2s; user-select: none; background: white;
+}
+.check-item label:hover { border-color: var(--sg-300); color: var(--sg-600); background: var(--sg-50); }
+.check-item input:checked + label { border-color: var(--sg-500); color: var(--sg-600); background: var(--sg-50); }
+.check-item input:checked + label::after { content: '✓'; font-weight: 900; font-size: 11px; }
+.check-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.cdz { background: var(--zoom-600); } .cdh { background: var(--hub-600); } .cdd { background: var(--zen-600); }
+
+.form-submit {
+  width: 100%; padding: 15px 24px;
+  background: var(--sg-600); color: white;
+  font-family: var(--font); font-size: 15px; font-weight: 700;
+  border: none; border-radius: 12px; cursor: pointer;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 16px rgba(79,45,196,.35);
+  transition: all .2s cubic-bezier(.25,.8,.25,1);
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  margin-top: 8px;
+}
+.form-submit:hover { background: var(--sg-700); transform: translateY(-2px); box-shadow: var(--s-purple); }
+.form-submit .btn-arr { transition: transform .2s; }
+.form-submit:hover .btn-arr { transform: translateX(4px); }
+.form-note {
+  text-align: center; font-size: 12px; color: var(--text-3);
+  margin-top: 14px; line-height: 1.5;
 }
 
-h1{
-font-size:42px;
-margin-bottom:20px;
+/* Success */
+.form-success { display: none; text-align: center; padding: 52px 24px; }
+.form-success .check-circle {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--sg-600), var(--sg-400));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; margin: 0 auto 24px;
+  animation: pop-in .5s cubic-bezier(.34,1.56,.64,1);
 }
+@keyframes pop-in { from{transform:scale(0)} to{transform:scale(1)} }
+.form-success h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 10px; }
+.form-success p { font-size: 15px; color: var(--text-2); line-height: 1.65; margin-bottom: 28px; }
+.form-success .next-steps { text-align: left; margin-bottom: 28px; }
+.form-success .next-steps h4 { font-size: 13.5px; font-weight: 700; margin-bottom: 12px; color: var(--text-1); }
+.ns-item { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--text-2); margin-bottom: 8px; line-height: 1.5; }
+.ns-item::before { content: '→'; color: var(--sg-500); font-weight: 700; flex-shrink: 0; }
 
-p{
-color:#555;
-margin-bottom:30px;
+/* ── FOOTER ── */
+footer { background: var(--n-950); padding: 48px 7%; }
+.ft-bottom-simple {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
 }
+.ft-logo-wrap { display: flex; align-items: center; gap: 9px; }
+.ft-logo-wrap img { height: 26px; filter: brightness(0) invert(1); opacity: .7; }
+.ft-logo-fb { font-size: 16px; font-weight: 800; color: white; }
+.ft-copy { font-size: 12.5px; color: var(--n-600); }
+.ft-links { display: flex; gap: 20px; }
+.ft-links a { font-size: 12.5px; color: var(--n-600); text-decoration: none; transition: color .15s; }
+.ft-links a:hover { color: var(--n-300); }
 
-form{
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; } .d3 { transition-delay: .24s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .page-hero-inner { grid-template-columns: 1fr; gap: 44px; min-height: auto; }
+  .hero-img-wrap { max-width: 540px; }
+  .page-inner { grid-template-columns: 1fr; }
+  .side-content { position: static; }
 }
-
-input, textarea{
-width:100%;
-padding:12px;
-margin-bottom:15px;
-border-radius:8px;
-border:1px solid #ddd;
-font-size:14px;
+@media (max-width: 768px) {
+  nav .nav-links { display: none; }
+  .page-body { padding: 52px 5%; }
+  .page-hero { padding: 0 5%; }
+  .form-card { padding: 32px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  .proof-nums { grid-template-columns: 1fr 1fr; }
 }
-
-button{
-background:#6B3DE8;
-color:white;
-border:none;
-padding:14px;
-width:100%;
-border-radius:8px;
-font-weight:600;
-cursor:pointer;
-}
-
-button:hover{
-background:#4F2DC4;
-}
-
 </style>
 </head>
-
 <body>
 
-<div class="container">
-
-<div>
-
-<h1>Book a Discovery Call</h1>
-
-<p>
-Talk with our experts to design a unified ecosystem for your
-communication, sales, and support workflows.
-</p>
-
-<form action="mailto:enosh.godwin@sysgrate.com" method="POST" enctype="text/plain">
-
-<input type="text" name="Name" placeholder="Full Name" required>
-
-<input type="email" name="Email" placeholder="Business Email" required>
-
-<input type="text" name="Company" placeholder="Company Name">
-
-<textarea name="Requirements" placeholder="Tell us about your requirements"></textarea>
-
-<button type="submit">Book Discovery Call</button>
-
-</form>
-
+<!-- ANNOUNCEMENT BAR -->
+<div class="annc">
+  🏆 Certified Focus Partner — Zoom · HubSpot · Zendesk
+  <a href="index.html">← Back to Main Page</a>
 </div>
 
-<div>
-<img src="agent.jpg" alt="Consultation Call">
+<!-- NAV -->
+<nav id="topnav">
+  <a href="index.html" class="nav-logo">
+    <img src="https://sysgrate.com/wp-content/uploads/2020/09/output-onlinepngtools.png" alt="Sysgrate"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
+    <span class="nav-logo-fb">Sysgrate</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#challenges">Challenges</a></li>
+    <li><a href="index.html#why">Why Us</a></li>
+    <li><a href="index.html#platforms">Platforms</a></li>
+    <li><a href="index.html#cases">Case Studies</a></li>
+  </ul>
+  <div class="nav-end">
+    <a href="pricing-audit.html" class="btn btn-ghost btn-sm">Request Pricing Audit</a>
+    <a href="#form" class="btn btn-pri btn-md">Book a Call</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+
+    <!-- LEFT: Text + Steps -->
+    <div class="hero-text reveal">
+      <div class="hero-eyebrow">30-Minute Session · Zero Obligation</div>
+      <h1>Book Your<br /><span class="accent">Discovery Call</span></h1>
+      <p>Talk directly with a certified Sysgrate expert. We'll map your current stack, identify integration opportunities, and show you what a unified Zoom + HubSpot + Zendesk ecosystem looks like for your business.</p>
+
+      <div class="hero-steps">
+        <div class="hero-step">
+          <div class="hs-num">1</div>
+          <div class="hs-text">
+            <h4>Submit your details below</h4>
+            <p>Takes under 2 minutes</p>
+          </div>
+        </div>
+        <div class="hero-step">
+          <div class="hs-num">2</div>
+          <div class="hs-text">
+            <h4>We confirm a time within 24 hrs</h4>
+            <p>We work around your availability</p>
+          </div>
+        </div>
+        <div class="hero-step">
+          <div class="hs-num">3</div>
+          <div class="hs-text">
+            <h4>30-min strategy session via Zoom</h4>
+            <p>No slides, no pitch — just clarity</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Image -->
+    <div class="hero-img-wrap reveal d2">
+      <div class="cred-pill"><span class="cred-icon">🏆</span>Certified Partner</div>
+      <img src="team-photo.jpg" alt="Sysgrate team specialists on a discovery call" />
+      <div class="hero-img-overlay"></div>
+      <div class="hero-img-badge">
+        <div class="hib-dot"></div>
+        <div class="hib-text">
+          <strong>Expert-led · Strategy-first</strong>
+          Real specialists — not a sales call
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MAIN BODY -->
+<div class="page-body" id="form">
+  <div class="page-inner">
+
+    <!-- SIDE CONTENT -->
+    <div class="side-content">
+
+      <div class="what-happens reveal">
+        <h3>What happens on the call?</h3>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot">🗺️</div>
+            <div class="tl-line"></div>
+            <div class="tl-text">
+              <div class="dur">Minutes 0–5</div>
+              <h4>Current Stack Review</h4>
+              <p>We understand your tools, team size, and what's working vs. what isn't.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">⚡</div>
+            <div class="tl-line"></div>
+            <div class="tl-text">
+              <div class="dur">Minutes 5–15</div>
+              <h4>Gap & Opportunity Mapping</h4>
+              <p>We identify where your workflows break down and where automation can unlock efficiency.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">💡</div>
+            <div class="tl-line"></div>
+            <div class="tl-text">
+              <div class="dur">Minutes 15–25</div>
+              <h4>Ecosystem Fit Assessment</h4>
+              <p>We show what a unified Zoom + HubSpot + Zendesk implementation could look like for your specific setup.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🎯</div>
+            <div class="tl-line"></div>
+            <div class="tl-text">
+              <div class="dur">Minutes 25–30</div>
+              <h4>Clear Next Steps</h4>
+              <p>You'll leave with a concrete recommendation — whether that's a pricing audit, a pilot, or simply more clarity.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-proof reveal d2">
+        <h3>What clients say</h3>
+        <div class="quote-block">
+          <div class="quote-text">The discovery call alone was eye-opening. In 30 minutes we found $40K in annual savings we didn't know existed.</div>
+          <div class="quote-attr">
+            <div class="quote-av">JM</div>
+            <div>
+              <div class="quote-name">James M.</div>
+              <div class="quote-co">VP Operations · SaaS Company (850 employees)</div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-nums">
+          <div class="pn"><div class="pn-n">30 min</div><div class="pn-l">Average session duration</div></div>
+          <div class="pn"><div class="pn-n">24 hrs</div><div class="pn-l">Confirmation turnaround</div></div>
+          <div class="pn"><div class="pn-n">100%</div><div class="pn-l">Free — no obligation ever</div></div>
+          <div class="pn"><div class="pn-n">2–5×</div><div class="pn-l">Efficiency gains uncovered</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FORM -->
+    <div class="form-card reveal d1">
+      <div id="form-content">
+        <div class="form-title">Schedule Your Call</div>
+        <div class="form-sub">Fill in your details and our team will reach out within 24 hours to confirm a time that works for you.</div>
+
+        <form id="call-form" action="https://formspree.io/f/xpwznjqg" method="POST">
+          <input type="hidden" name="_subject" value="New Discovery Call Request — Sysgrate" />
+          <input type="hidden" name="form_type" value="Discovery Call" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fname">First Name <span class="req">*</span></label>
+              <input class="form-input" type="text" id="fname" name="first_name" placeholder="Sarah" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lname">Last Name <span class="req">*</span></label>
+              <input class="form-input" type="text" id="lname" name="last_name" placeholder="Johnson" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="email">Work Email <span class="req">*</span></label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="sarah@company.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone Number</label>
+              <input class="form-input" type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="company">Company Name <span class="req">*</span></label>
+              <input class="form-input" type="text" id="company" name="company" placeholder="Acme Inc." required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="title">Your Job Title</label>
+              <input class="form-input" type="text" id="title" name="job_title" placeholder="VP Operations" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="size">Company Size <span class="req">*</span></label>
+              <select class="form-select" id="size" name="company_size" required>
+                <option value="" disabled selected>Select team size</option>
+                <option>1–10 employees</option>
+                <option>11–50 employees</option>
+                <option>51–200 employees</option>
+                <option>201–500 employees</option>
+                <option>501–1,000 employees</option>
+                <option>1,000+ employees</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="timezone">Your Timezone <span class="req">*</span></label>
+              <select class="form-select" id="timezone" name="timezone" required>
+                <option value="" disabled selected>Select timezone</option>
+                <option>UTC−8 (PST)</option>
+                <option>UTC−7 (MST)</option>
+                <option>UTC−6 (CST)</option>
+                <option>UTC−5 (EST)</option>
+                <option>UTC+0 (GMT / London)</option>
+                <option>UTC+1 (CET / Europe)</option>
+                <option>UTC+2 (EET)</option>
+                <option>UTC+3 (Gulf / Moscow)</option>
+                <option>UTC+4 (UAE)</option>
+                <option>UTC+5:30 (IST / India)</option>
+                <option>UTC+8 (SGT / China)</option>
+                <option>UTC+10 (AEST)</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label" for="pref-time">Preferred Meeting Time <span class="req">*</span></label>
+            <select class="form-select" id="pref-time" name="preferred_time" required>
+              <option value="" disabled selected>When works best for you?</option>
+              <option>Morning (8am–12pm local time)</option>
+              <option>Afternoon (12pm–5pm local time)</option>
+              <option>Evening (5pm–7pm local time)</option>
+              <option>Flexible — any time works</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Which platforms are you interested in? <span class="req">*</span></label>
+            <div class="check-grid">
+              <div class="check-item">
+                <input type="checkbox" id="p-zoom" name="interest_zoom" value="Zoom" />
+                <label for="p-zoom"><span class="check-dot cdz"></span>Zoom</label>
+              </div>
+              <div class="check-item">
+                <input type="checkbox" id="p-hub" name="interest_hubspot" value="HubSpot" />
+                <label for="p-hub"><span class="check-dot cdh"></span>HubSpot</label>
+              </div>
+              <div class="check-item">
+                <input type="checkbox" id="p-zen" name="interest_zendesk" value="Zendesk" />
+                <label for="p-zen"><span class="check-dot cdd"></span>Zendesk</label>
+              </div>
+              <div class="check-item">
+                <input type="checkbox" id="p-int" name="interest_integration" value="Full Integration" />
+                <label for="p-int">Full integration</label>
+              </div>
+              <div class="check-item">
+                <input type="checkbox" id="p-ns" name="interest_notsure" value="Not Sure" />
+                <label for="p-ns">Not sure yet</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label" for="challenge">What's your biggest challenge right now? <span class="req">*</span></label>
+            <textarea class="form-textarea" id="challenge" name="biggest_challenge" placeholder="e.g. Our sales and support teams work in silos, we're overspending on licenses, implementation was rushed and never optimised..." required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">
+            Book My Discovery Call
+            <span class="btn-arr">→</span>
+          </button>
+          <p class="form-note">📅 We'll confirm a Zoom calendar invite within 24 hours. No obligation, ever.</p>
+        </form>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="form-success" id="form-success">
+        <div class="check-circle">📅</div>
+        <h3>You're on the list!</h3>
+        <p>Our team will reach out within <strong>24 hours</strong> to confirm your session time.</p>
+        <div class="next-steps">
+          <h4>What happens next:</h4>
+          <div class="ns-item">You'll receive a confirmation email from enosh.godwin@sysgrate.com</div>
+          <div class="ns-item">We'll send a Zoom calendar invite with a personalised agenda</div>
+          <div class="ns-item">Come prepared with questions — we'll have answers</div>
+        </div>
+        <a href="index.html" class="btn btn-pri btn-md" style="margin: 0 auto; border-radius:10px;">← Back to Home</a>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-</div>
+<!-- FOOTER -->
+<footer>
+  <div class="ft-bottom-simple">
+    <div class="ft-logo-wrap">
+      <img src="https://sysgrate.com/wp-content/uploads/2020/09/output-onlinepngtools-1.png" alt="Sysgrate"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
+      <span class="ft-logo-fb">Sysgrate</span>
+    </div>
+    <div class="ft-copy">© 2026 Sysgrate Technologies. All rights reserved.</div>
+    <div class="ft-links">
+      <a href="index.html">Home</a>
+      <a href="pricing-audit.html">Pricing Audit</a>
+      <a href="mailto:enosh.godwin@sysgrate.com">Contact</a>
+      <a href="https://www.linkedin.com/company/sysgrate-technologies/">LinkedIn</a>
+    </div>
+  </div>
+</footer>
 
+<script>
+/* Nav scroll shadow */
+const nav = document.getElementById('topnav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+
+/* Scroll reveal */
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+}), { threshold: .07, rootMargin: '0px 0px -36px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* Form submit */
+const form    = document.getElementById('call-form');
+const content = document.getElementById('form-content');
+const success = document.getElementById('form-success');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = form.querySelector('.form-submit');
+  btn.textContent = 'Booking your call…'; btn.disabled = true;
+
+  try {
+    const data = new FormData(form);
+    data.append('_to', 'enosh.godwin@sysgrate.com');
+
+    const res = await fetch(form.action, {
+      method: 'POST', body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      content.style.display = 'none';
+      success.style.display = 'block';
+    } else {
+      btn.textContent = 'Book My Discovery Call →'; btn.disabled = false;
+      alert('Something went wrong. Please email enosh.godwin@sysgrate.com directly.');
+    }
+  } catch {
+    btn.textContent = 'Book My Discovery Call →'; btn.disabled = false;
+    alert('Network error. Please email enosh.godwin@sysgrate.com directly.');
+  }
+});
+</script>
 </body>
 </html>
