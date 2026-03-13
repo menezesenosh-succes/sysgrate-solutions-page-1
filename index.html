@@ -206,6 +206,15 @@ section { padding: var(--sec-pad); }
   color: var(--text-1); line-height: 1.1;
   margin-bottom: 18px;
 }
+   .sec-h::after{
+content:'';
+display:block;
+width:80px;
+height:4px;
+margin-top:12px;
+background:linear-gradient(90deg,#6B3DE8,#0B5CFF);
+border-radius:4px;
+}
 .sec-sub {
   font-size: 17px; font-weight: 400;
   color: var(--text-2); line-height: 1.7;
@@ -463,7 +472,13 @@ section { padding: var(--sec-pad); }
 .why-b:hover .why-b-ico { background: var(--sg-100); transform: scale(1.08); }
 .why-b h4 { font-size: 14.5px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 4px; }
 .why-b p  { font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
-
+<img src="images/business-strategy.jpg"
+style="
+width:100%;
+border-radius:20px;
+margin-bottom:30px;
+box-shadow:0 8px 30px rgba(0,0,0,0.12);
+">
 .cmp-wrap {
   background: var(--bg-2); border: 1px solid var(--border);
   border-radius: 22px; overflow: hidden; box-shadow: var(--s-sm);
@@ -1005,6 +1020,13 @@ footer { background: var(--n-950); padding: 64px 7%; }
 
     <!-- RIGHT — Stats Card -->
     <div class="hero-r reveal d2">
+       <img src="images/team-collaboration.jpg"
+style="
+width:100%;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 10px 40px rgba(0,0,0,0.15);
+">
       <div class="stats-card">
         <div class="stats-card-top"></div>
         <div class="stats-card-body">
@@ -1229,6 +1251,21 @@ footer { background: var(--n-950); padding: 64px 7%; }
         <div class="met-row"><span class="met-lbl">Quicker Adoption</span><span class="met-val">30–50%</span></div>
       </div>
     </div>
+     <div class="pl-image">
+        <img src="images/customer-support.jpg"
+        style="
+        width:100%;
+        border-radius:18px;
+        margin-bottom:25px;
+        box-shadow:0 10px 40px rgba(0,0,0,0.15);
+        ">
+    </div>
+
+    <div class="met-card">
+        <!-- metrics card -->
+    </div>
+
+</div>
 
     <!-- HUBSPOT -->
     <div class="pl-panel" id="pl-hub">
@@ -1466,6 +1503,14 @@ footer { background: var(--n-950); padding: 64px 7%; }
       <h2 class="sec-h">Proven Results Across Industries</h2>
       <p class="sec-sub">Real outcomes from real companies that chose Sysgrate over buying direct.</p>
     </div>
+     <div style="margin-bottom:50px">
+<img src="images/case-study.jpg"
+style="
+width:100%;
+border-radius:20px;
+box-shadow:0 10px 40px rgba(0,0,0,0.15);
+">
+</div>
     <div class="cases-grid">
       <div class="case-card reveal d1">
         <div class="case-lbl">Case Study 01</div>
@@ -1802,6 +1847,7 @@ document.querySelectorAll('.eco-num-card').forEach((card, i) => {
 </script>
 </body>
 </html>
+
 
 
 
